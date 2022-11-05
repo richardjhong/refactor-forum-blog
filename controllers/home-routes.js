@@ -5,13 +5,12 @@ const withAuth = require('../utils/auth');
 
 // GET all projects for homepage
 router.get('/', async (req, res) => {
-  console.log('test')
   try {
     const dbPostData = await Post.findAll({
       include: [
         {
           model: User,
-          attributes: ['username'],
+          attributes: ['username', 'email'],
         },
       ],
     });
@@ -33,22 +32,32 @@ router.get('/', async (req, res) => {
 
 // GET one project
 // Use the custom middleware before allowing the user to access the gallery
-router.get('/post/:id', withAuth, async (req, res) => {
+router.get('/post/:id', async (req, res) => {
   try {
     const dbPostData = await Post.findByPk(req.params.id, {
-      // include: [
-      //   {
-      //     model: User,
-      //     attributes: [
-      //       'name'
-      //     ],
-      //   },
-      // ],
+      include: [
+        {
+          model: User,
+          attributes: ['username']
+        },
+        {
+          model: Comment,
+          order: ['date_created', 'DESC'],
+          include: {
+            model: User,
+            attributes: ['username']
+          }
+        }
+      ],
     });
 
     const post = dbPostData.get({ plain: true });
-    console.log(dbPostData)
-    res.render('post', { post, loggedIn: req.session.loggedIn, userName: req.session.userName });
+    const noComments = post.comments.length !== 0
+    // console.log('noComments boolean: ', noComments)
+    req.session.save(() => {
+      req.session.noComments = noComments;
+    })
+    res.render('post', { post, loggedIn: req.session.loggedIn, userName: req.session.userName,  noComments: req.session.noComments});
   } catch (err) {
     console.log(err);
     res.status(500).json(err);
