@@ -2,12 +2,10 @@ const addCommentHandler = async (e) => {
   e.preventDefault();
 
   const comment = await document.querySelector('#new-comment').value.trim();
-  const user_id = await document.getElementById("post-hb-script").getAttribute( "data-user_id");
-  const post_id = await document.getElementById("post-hb-script").getAttribute( "data-post_id");
+  const user_id = document.getElementById("comment-hb-script").getAttribute( "data-user_id");
+  const post_id = document.getElementById("comment-hb-script").getAttribute( "data-post_id");
 
   if (comment) {
-
-    console.log('test: ', post_id)
     const response = await fetch('/api/comments/', {
       method: 'POST',
       body: JSON.stringify(

@@ -19,6 +19,12 @@ const postdata = [
     date_created: 'March 19, 2022 19:00:00',
     user_id: 3
   },
+  {
+    title: 'How do I use Bootstrap?',
+    content: `I saw something about using a cdn so I don't have to install bootstrp but don't know what to do next.`,
+    date_created: 'October 15, 2022 13:00:00',
+    user_id: 1
+  },
 ];
 
 const seedPosts = () => Post.bulkCreate(postdata);

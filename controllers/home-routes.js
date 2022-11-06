@@ -54,16 +54,16 @@ router.get('/post/:id', withAuth, async (req, res) => {
     const post = dbPostData.get({ plain: true });
     const noComments = post.comments.length === 0
     req.session.save(() => {
-      req.session.noComments = noComments;
       req.session.post_id = parseInt(req.params.id)
     })
-    res.render('post', { post, loggedIn: req.session.loggedIn, user_id: req.session.user_id,  noComments: req.session.noComments, post_id: req.session.post_id, userName: req.session.userName });
+    res.render('post', { post, loggedIn: req.session.loggedIn, user_id: req.session.user_id,  noComments: noComments, post_id: req.session.post_id, userName: req.session.userName });
   } catch (err) {
     console.log(err);
     res.status(500).json(err);
   }
 });
 
+// GET a user's specific dashboard
 router.get('/dashboard', withAuth, async (req, res) => {
   try {
     const userPostData = await Post.findAll({
@@ -78,7 +78,7 @@ router.get('/dashboard', withAuth, async (req, res) => {
     const userPosts = userPostData.map((post) =>
       post.get({ plain: true })
     );
-    res.render('dashboard', {userPosts})
+    res.render('dashboard', {userPosts, loggedIn: req.session.loggedIn, userName: req.session.userName, user_id: req.session.user_id})
   } catch (err) {
     console.log(err);
     res.status(500).json(err);
