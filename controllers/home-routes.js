@@ -56,8 +56,9 @@ router.get('/post/:id', async (req, res) => {
     // console.log('noComments boolean: ', noComments)
     req.session.save(() => {
       req.session.noComments = noComments;
+      req.session.post_id = parseInt(req.params.id)
     })
-    res.render('post', { post, loggedIn: req.session.loggedIn, userName: req.session.userName,  noComments: req.session.noComments});
+    res.render('post', { post, loggedIn: req.session.loggedIn, user_id: req.session.user_id,  noComments: req.session.noComments, post_id: req.session.post_id });
   } catch (err) {
     console.log(err);
     res.status(500).json(err);
