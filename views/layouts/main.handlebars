@@ -16,15 +16,16 @@
   <nav>
     <a href="/">Home</a>
     {{#if loggedIn}}
-    <button id="logout" class="btn-no-style">Logout</button>
+    <a href="/dashboard">Dashboard</a>
     <p>Welcome back, {{userName}}</p>
+    <button id="logout" class="btn-no-style">Logout</button>
     {{else}}
     <a href="/login">Login</a>
     {{/if}}
   </nav>
   <main>
     <aside>
-      <h2>Here are ongoing projects asking for funding!</h2>
+      <h2>Click on a forum post and join in on the conversation!</h2>
     </aside>
     <div class="post">
       {{{body}}}

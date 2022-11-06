@@ -6,6 +6,8 @@ const addCommentHandler = async (e) => {
   const post_id = await document.getElementById("post-hb-script").getAttribute( "data-post_id");
 
   if (comment) {
+
+    console.log('test: ', post_id)
     const response = await fetch('/api/comments/', {
       method: 'POST',
       body: JSON.stringify(
