@@ -18,7 +18,7 @@
     <a href="/">Home</a>
     {{#if loggedIn}}
     <a href="/dashboard">Dashboard</a>
-    <p>Welcome back, {{userName}} {{current_user_id}}</p>
+    <p>Welcome back, {{userName}}</p>
     <button id="logout" class="btn-no-style">Logout</button>
     {{else}}
     <a href="/login">Login</a>
@@ -35,9 +35,29 @@
   {{#if loggedIn}}
   <script src="/js/logout.js"></script>
   {{/if}}
-  
+  <div id="modal-js-example" class="modal">
+    <div class="modal-background"></div>
+    <div class="modal-content">
+      <div class="box">
+        <form class="form post-form" id="edit-post-form">
+        <p id="edit-post-tag">Editing</p>
+        <div class="form-group">
+          <label for="new-post-title">Title:</label>
+          <input class="form-input" type="text" id="edit-post-title"/>
+        </div>
+        <div class="form-group">
+          <label for="new-post-content">Content:</label>
+          <input class="form-input" type="text" id="edit-post-content"/>
+        </div>
+        <div class="form-group">
+          <button class="btn btn-primary" id="edit-submit-button" type="submit">Submit</button>
+        </div>
+      </form>
+      </div>
+    </div>
+    <button class="modal-close is-large" aria-label="close"></button>
+  </div>
   <script src="/js/editmodal.js"></script>
-    
+  <script src="/js/deletepost.js"></script>
 </body>
-
 </html>

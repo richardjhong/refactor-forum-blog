@@ -43,19 +43,60 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
-const editPostHandler = async (e) => {
-
-  console.log('testesetest: ', e.currentTarget)
-  const editTitle = await document.querySelector('.js-modal-trigger').dataset.title;
-  const editContent = await document.querySelector('.js-modal-trigger').dataset.content;
-  
-  console.log('editTitle: ', editTitle)
-  console.log('editContent: ', editContent)
-
-
-
+const hitEscapeKey = () => {
+  const escapeKey = document.createEvent("Events");
+  escapeKey.initEvent("keydown", true, true);
+  escapeKey.keyCode = 27;
+  escapeKey.which = 27;
+  document.dispatchEvent(escapeKey);
 }
 
+const editPostHandler = async (e) => {
+  e.preventDefault();
+  const editTitle = await e.target.dataset.title;
+  const editContent = await e.target.dataset.content;
+  const editID = await e.target.dataset.post_id;
+  const editUserID = await e.target.dataset.user_id;
+
+  const editFormTitle = document.querySelector("#edit-post-title")
+  const editFormContent = document.querySelector("#edit-post-content")
+  const editFormTag = document.querySelector("#edit-post-tag")
+
+  editFormTitle.value = editTitle
+  editFormContent.value = editContent
+  editFormTag.innerText = `Editing Post ${editID}`
+}
+
+const modalTrigger = document.querySelectorAll('.js-modal-trigger')
+modalTrigger.forEach(trigger => {
+  trigger.addEventListener('click', editPostHandler);
+})
+
+const submitEditHandler = async (e) => {
+  e.preventDefault();
+  const editTagArr = document.querySelector("#edit-post-tag").innerText.split(' ')
+  
+  const response = await fetch(`/api/posts/${editTagArr[2]}`, {
+    method: 'PUT',
+    body: JSON.stringify(
+      {
+      "title": document.querySelector("#edit-post-title").value,
+      "content": document.querySelector("#edit-post-content").value,
+      "date_created": new Date(),
+      "user_id": 0,
+      }
+    ),
+    headers: { 'Content-Type': 'application/json' },
+  });
+
+  if (response.ok) {
+    hitEscapeKey()
+    document.location.replace(`/dashboard`)
+  } else {
+    alert('Failed to edit post.');
+  }
+} 
+
 document  
-  .querySelector('.js-modal-trigger')
-  .addEventListener('click', editPostHandler);
+  .querySelector('#edit-post-form')
+  .addEventListener('submit', submitEditHandler);
