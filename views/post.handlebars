@@ -6,7 +6,7 @@
     <div class="card-body">
       <h4>{{post.content}}</h4>
       <h4>Posted by: {{post.user.username}}</h4>
-      <h4>Date posted: {{format_time post.date_created}} </h4>
+      <h4>Date posted: {{format_time post.date_created}}</h4>
     </div>
   </section>
   <section class="card">
@@ -14,7 +14,7 @@
       <h3 class="post-title">Add a comment</h3>
     </header>
     <div class="card-body">
-      <form class="form comment-form">
+      <form class="form comment-form" id="new-comment-form" data-user_id="{{user_id}}" data-post_id="{{post_id}}">
         {{#if noComments}}
         <p>Be the first to comment on this post!</p>
         {{else}}
@@ -37,4 +37,4 @@
   </section>
 </section>
 
-<script src="/js/addcomment.js" id="comment-hb-script" data-user_id={{user_id}} data-post_id={{post_id}}></script>
+<script src="/js/addcomment.js"></script>

@@ -3,8 +3,7 @@ const addPostHandler = async (e) => {
 
   const postTitle = await document.querySelector('#new-post-title').value.trim();
   const postContent = await document.querySelector('#new-post-content').value.trim();
-
-  const user_id = await document.getElementById("post-hb-script").getAttribute( "data-user_id");
+  const user_id = await document.querySelector("#new-post-form").dataset.user_id;
 
   if (postTitle && postContent) {
     const response = await fetch('/api/posts/', {
@@ -21,7 +20,7 @@ const addPostHandler = async (e) => {
     });
 
     if (response.ok) {
-      document.location.replace('/');
+      document.location.replace(`/dashboard`)
     } else {
       alert('Failed to add post.');
     }

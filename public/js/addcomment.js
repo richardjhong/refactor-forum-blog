@@ -2,8 +2,8 @@ const addCommentHandler = async (e) => {
   e.preventDefault();
 
   const comment = await document.querySelector('#new-comment').value.trim();
-  const user_id = document.getElementById("comment-hb-script").getAttribute( "data-user_id");
-  const post_id = document.getElementById("comment-hb-script").getAttribute( "data-post_id");
+  const user_id = await document.querySelector("#new-comment-form").dataset.user_id;
+  const post_id = await document.querySelector("#new-comment-form").dataset.post_id;
 
   if (comment) {
     const response = await fetch('/api/comments/', {
@@ -20,7 +20,7 @@ const addCommentHandler = async (e) => {
     });
 
     if (response.ok) {
-      document.location.replace('/');
+      document.location.replace(`/api/posts/${post_id}`)
     } else {
       alert('Failed to add comment.');
     }

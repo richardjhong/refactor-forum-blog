@@ -7,4 +7,7 @@ module.exports = {
       new Date(date).getFullYear() + 5
     }`;
   },
+  matchingId: (id1, id2) => {
+    return id1 === id2;
+  }
 };

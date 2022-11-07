@@ -2,10 +2,10 @@
   <section class="card">
     <header>Add a new post</header>
     <div class="card-body">
-      <form class="form post-form">
+      <form class="form post-form" data-user_id="{{user_id}}" id="new-post-form">
         <div class="form-group">
           <label for="new-post-title">Title:</label>
-          <input class="form-input" type="text" id="new-post-title" />
+          <input class="form-input" type="text" id="new-post-title"/>
         </div>
         <div class="form-group">
           <label for="new-post-content">Content:</label>
@@ -18,8 +18,8 @@
     </div>
   </section>
   {{#each userPosts as |post|}}
-    {{> post-details}}
+    {{> post-details current_user_id=../current_user_id}}
   {{/each}}
 </section>
 
-<script src="/js/addpost.js" id="post-hb-script" data-user_id={{user_id}}></script>
+<script src="/js/addpost.js"></script>
