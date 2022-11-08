@@ -3,7 +3,7 @@ const { Comment } = require('../models');
 const commentdata = [
   {
     content: `You're using the wrong syntax; put => instead for arrow functions`,
-    date_created: 'June 21, 2021 17:00:00',
+    date_created: 'June 21, 2021 07:00:00',
     user_id: 2,
     post_id: 1
   },

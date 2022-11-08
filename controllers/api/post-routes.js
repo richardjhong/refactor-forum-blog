@@ -25,13 +25,13 @@ router.get('/:id', withAuth, async (req, res) => {
         },
         {
           model: Comment,
-          order: ['date_created', 'DESC'],
           include: {
             model: User,
             attributes: ['username']
           }
         }
       ],
+      order: [[ { model: Comment }, 'date_created', 'DESC']]
     });
 
     const post = dbPostData.get({ plain: true });

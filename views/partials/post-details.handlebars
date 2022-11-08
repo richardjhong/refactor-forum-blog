@@ -14,7 +14,8 @@
   {{/if}}
   <a href="/api/posts/{{id}}">
     <div class="card-body">
-      {{content}} 
+      <p>{{content}}</p>
+      <p>Posted on: {{format_date date_created}}</p>
     </div>
   </a>  
 </section>

@@ -54,7 +54,7 @@ nav {
   background-color: var(--secondary);
 }
 
-nav a {
+nav a, nav p {
   color: var(--light);
   padding: 14px 20px;
   text-decoration: none;
@@ -64,6 +64,14 @@ nav a {
 nav a:hover {
   color: var(--secondary);
   background-color: var(--dark);
+}
+
+#logout {
+  padding: 14px 20px;
+  text-decoration: none;
+  /* text-align: center; */
+  display: flex;
+  justify-content: center;
 }
 
 .gallery {
@@ -91,7 +99,7 @@ nav a:hover {
 .btn-no-style {
   background: none;
   border: none;
-  padding: 0;
+  /* padding: 0; */
   cursor: pointer;
   text-decoration: none;
   font-size: 100%;

@@ -7,6 +7,7 @@ const withAuth = require('../utils/auth');
 router.get('/', async (req, res) => {
   try {
     const dbPostData = await Post.findAll({
+      order: [["date_created", "DESC"]],
       include: [
         {
           model: User,
@@ -35,6 +36,7 @@ router.get('/', async (req, res) => {
 router.get('/dashboard', withAuth, async (req, res) => {
   try {
     const userPostData = await Post.findAll({
+      order: [["date_created", "DESC"]],
       include: {
         model: User,
         where: {
